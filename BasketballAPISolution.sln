@@ -14,9 +14,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		WECANCodeIT.png = WECANCodeIT.png
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballDataModel", "BasketballDataModel\BasketballDataModel.csproj", "{E939C990-3008-4ACB-A72E-30C9268FEF42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballDataModel", "BasketballDataModel\BasketballDataModel.csproj", "{E939C990-3008-4ACB-A72E-30C9268FEF42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballTest", "BasketballTest\BasketballTest.csproj", "{5843E882-2E73-42F3-A2DE-93990BB352C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BasketballTest", "BasketballTest\BasketballTest.csproj", "{5843E882-2E73-42F3-A2DE-93990BB352C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasketballAPI", "BasketballAPI\BasketballAPI.csproj", "{54E445A0-C95A-4153-AF27-8CCC78A031CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +38,10 @@ Global
 		{5843E882-2E73-42F3-A2DE-93990BB352C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5843E882-2E73-42F3-A2DE-93990BB352C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5843E882-2E73-42F3-A2DE-93990BB352C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E445A0-C95A-4153-AF27-8CCC78A031CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E445A0-C95A-4153-AF27-8CCC78A031CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E445A0-C95A-4153-AF27-8CCC78A031CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E445A0-C95A-4153-AF27-8CCC78A031CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
