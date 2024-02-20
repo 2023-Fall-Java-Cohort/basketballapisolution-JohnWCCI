@@ -9,6 +9,6 @@ namespace BasketballAPI.Context
         public DbSet<PlayerModel> Players { get; set; }
         public DbSet<TeamModel> Teams { get; set; }
         public DbSet<PositionModel> Positions { get; set; }
-       // public DbSet<PlayerPositionModel> PlayerPositions { get; set; }
+       
     }
 }

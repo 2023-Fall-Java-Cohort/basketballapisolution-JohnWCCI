@@ -26,6 +26,8 @@ namespace BasketballDataModel
         [StringLength(100)]
         public string Name { get => name; set => name = value; }
 
+        public bool IsDeleted { get; set; } = false;
+
         [Required]
         public DateTime UpdateOn { get => updateOn; set => updateOn = value; }
 

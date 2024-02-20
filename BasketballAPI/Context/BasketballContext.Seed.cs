@@ -8,9 +8,7 @@ namespace BasketballAPI.Context
     {
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<PlayerPositionModel>()
-            //   .HasKey(m => new { m.PlayerId, m.PositionId });
-
+           
             modelBuilder.Entity<TeamModel>()
                 .HasData(
                 new TeamModel()
@@ -71,9 +69,10 @@ namespace BasketballAPI.Context
                     Id = 5,
                     Name = "Center",
                 }
-                );
+               );
             GenreatePlayers genreatePlayers = new GenreatePlayers();
-            modelBuilder.Entity<PlayerModel>().HasData( genreatePlayers.GetPlayers(500,5 ));
+            modelBuilder.Entity<PlayerModel>().HasData( genreatePlayers.GetPlayers(500,5,5 ));
+
             GenerateCoachs coachs = new GenerateCoachs(5);
             modelBuilder.Entity<CoachModel>().HasData(coachs.GetCoachs());
         }

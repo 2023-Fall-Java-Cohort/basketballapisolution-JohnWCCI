@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BasketballDataModel
@@ -26,5 +27,9 @@ namespace BasketballDataModel
 
         [ForeignKey("TeamId")]
         public virtual TeamModel? Team { get; set; }
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }

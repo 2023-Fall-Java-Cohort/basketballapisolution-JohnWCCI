@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace BasketballDataModel
 {
@@ -7,6 +8,10 @@ namespace BasketballDataModel
     [Index("Name", IsUnique = true)]
     public class PositionModel : BaseModel
     {
-        public virtual List<PlayerModel>?  Players { get; set; } 
+        public virtual List<PlayerModel>?  Players { get; set; }
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }

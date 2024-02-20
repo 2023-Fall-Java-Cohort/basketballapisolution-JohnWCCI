@@ -2,6 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json;
 
 namespace BasketballDataModel
 {
@@ -25,6 +26,10 @@ namespace BasketballDataModel
             } }
         public virtual List<CoachModel>? Coaches { get; set; }
         public virtual List<PlayerModel>? Players { get; set; }
-      
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this);
+        }
+
     }
 }
