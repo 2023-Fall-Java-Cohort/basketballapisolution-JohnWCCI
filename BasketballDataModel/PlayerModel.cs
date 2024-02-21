@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bogus.DataSets;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
@@ -25,6 +26,14 @@ namespace BasketballDataModel
         [Column(TypeName = "money")]
         [Range(0,5000000)]
         public decimal Salary { get => salary; set => salary = value; }
+        [NotMapped]
+        public string GetSalary
+        {
+            get
+            {
+              return string.Format("{0:C0}", salary);
+            }
+        }
         public int TeamId { get => teamId; set => teamId = value; }
         public int PositionId { get; set; }
 

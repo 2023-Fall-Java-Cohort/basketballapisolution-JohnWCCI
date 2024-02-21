@@ -15,24 +15,6 @@ namespace BasketballAPI.Services
             this.logger = logger;
         }
 
-        public async ValueTask<List<PlayerModel>> GetPlayersPaging(int pageIndex,  int pageSize, CancellationToken cancellation = default(CancellationToken))
-        {
-            List<PlayerModel> result = new List<PlayerModel>();
-            try
-            {
-                result = await dbContext.Set<PlayerModel>()
-                    .Skip(pageIndex * pageSize)
-                    .Take(pageSize)
-                    .ToListAsync(cancellation);
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex, $"Error getting {className} from the Database");
-                throw;
-            }
-
-            return result;
-        }
 
 
         public override async ValueTask<PlayerModel?> GetAsync(int id, CancellationToken cancellation = default)

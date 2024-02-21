@@ -1,4 +1,5 @@
 ﻿using BasketballAPI.Context;
+using BasketballDataModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasketballAPI.Services
@@ -78,6 +79,11 @@ namespace BasketballAPI.Services
                     .Where(w => EF.Property<int>(w, "Id") == id)
                     .AsNoTracking()
                     .FirstOrDefaultAsync(cancellation);
+                if(entity is null)
+                {
+                    return null;
+                }
+
             }
             catch (Exception ex)
             {
@@ -104,5 +110,60 @@ namespace BasketballAPI.Services
             }
             return result;
         }
+        public async ValueTask<List<TEntity>> GetPaging(int pageIndex, int pageSize, CancellationToken cancellation = default(CancellationToken))
+        {
+            List<TEntity> result = new List<TEntity>();
+            try
+            {
+                result = await dbContext.Set<TEntity>()
+                    .Skip((pageIndex-1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync(cancellation);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error getting {className} from the Database");
+                throw;
+            }
+
+            return result;
+        }
+
+        public async ValueTask<List<TEntity>> FindNamePaging(string name, int pageIndex, int pageSize, CancellationToken cancellation = default(CancellationToken))
+        {
+            List<TEntity> result = new List<TEntity>();
+            try
+            {
+                result = await dbContext.Set<TEntity>()
+                    .Where(w => EF.Property<string>(w, "Name").Contains(name))
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync(cancellation);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error getting {className} from the Database");
+                throw;
+            }
+
+            return result;
+        }
+
+        public async ValueTask<int> GetCountAsync(CancellationToken cancellation = default(CancellationToken))
+        {
+            int result = 0;
+            try
+            {
+                List<TEntity> entity = await dbContext.Set<TEntity>().ToListAsync(cancellation);
+                result = entity.Count;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error getting count of {className} from the Database");
+                throw;
+            }
+            return result;
+        }
+
     }
 }
