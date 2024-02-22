@@ -86,6 +86,12 @@ namespace BasketballAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Deletes the model.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="cancellation">The cancellation.</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async ValueTask<ActionResult<bool>> DeleteModel(int id, CancellationToken cancellation = default(CancellationToken))
         {
@@ -150,5 +156,6 @@ namespace BasketballAPI.Controllers
                 return Problem($"{ex.Message}:Count {className}");
             }
         }
+    
     }
 }

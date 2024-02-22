@@ -75,11 +75,12 @@ namespace BasketballAPI.Services
             TEntity? entity;
             try
             {
-                entity = await dbContext.Set<TEntity>()
+                IQueryable<TEntity> query = dbContext.Set<TEntity>();
+                entity = await query
                     .Where(w => EF.Property<int>(w, "Id") == id)
                     .AsNoTracking()
                     .FirstOrDefaultAsync(cancellation);
-                if(entity is null)
+                if (entity is null)
                 {
                     return null;
                 }
@@ -115,8 +116,9 @@ namespace BasketballAPI.Services
             List<TEntity> result = new List<TEntity>();
             try
             {
-                result = await dbContext.Set<TEntity>()
-                    .Skip((pageIndex-1) * pageSize)
+                IQueryable<TEntity> query = dbContext.Set<TEntity>();
+                result = await query
+                    .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync(cancellation);
             }
@@ -134,7 +136,8 @@ namespace BasketballAPI.Services
             List<TEntity> result = new List<TEntity>();
             try
             {
-                result = await dbContext.Set<TEntity>()
+                IQueryable<TEntity> query = dbContext.Set<TEntity>();
+                result = await query
                     .Where(w => EF.Property<string>(w, "Name").Contains(name))
                     .Skip((pageIndex - 1) * pageSize)
                     .Take(pageSize)
@@ -154,8 +157,8 @@ namespace BasketballAPI.Services
             int result = 0;
             try
             {
-                List<TEntity> entity = await dbContext.Set<TEntity>().ToListAsync(cancellation);
-                result = entity.Count;
+                IQueryable<TEntity> query = dbContext.Set<TEntity>();
+                result = await query.CountAsync(cancellation);
             }
             catch (Exception ex)
             {
@@ -164,6 +167,6 @@ namespace BasketballAPI.Services
             }
             return result;
         }
-
+     
     }
 }
