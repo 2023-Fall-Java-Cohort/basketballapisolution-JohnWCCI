@@ -10,22 +10,22 @@ using BasketballDataModel;
 
 namespace BasketballApp.Controllers
 {
-    public class PositionModelsController : Controller
+    public class TeamController : Controller
     {
         private readonly BasketballContext _context;
 
-        public PositionModelsController(BasketballContext context)
+        public TeamController(BasketballContext context)
         {
             _context = context;
         }
 
-        // GET: PositionModels
+        // GET: TeamModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Positions.ToListAsync());
+            return View(await _context.Teams.ToListAsync());
         }
 
-        // GET: PositionModels/Details/5
+        // GET: TeamModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var positionModel = await _context.Positions
+            var teamModel = await _context.Teams
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (positionModel == null)
+            if (teamModel == null)
             {
                 return NotFound();
             }
 
-            return View(positionModel);
+            return View(teamModel);
         }
 
-        // GET: PositionModels/Create
+        // GET: TeamModels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: PositionModels/Create
+        // POST: TeamModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,IsDeleted,UpdateOn,CreateDate")] PositionModel positionModel)
+        public async Task<IActionResult> Create([Bind("NationalRank,SeasonWins,SeasonLoss,Id,Name,IsDeleted,UpdateOn,CreateDate")] TeamModel teamModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(positionModel);
+                _context.Add(teamModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(positionModel);
+            return View(teamModel);
         }
 
-        // GET: PositionModels/Edit/5
+        // GET: TeamModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var positionModel = await _context.Positions.FindAsync(id);
-            if (positionModel == null)
+            var teamModel = await _context.Teams.FindAsync(id);
+            if (teamModel == null)
             {
                 return NotFound();
             }
-            return View(positionModel);
+            return View(teamModel);
         }
 
-        // POST: PositionModels/Edit/5
+        // POST: TeamModels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IsDeleted,UpdateOn,CreateDate")] PositionModel positionModel)
+        public async Task<IActionResult> Edit(int id, [Bind("NationalRank,SeasonWins,SeasonLoss,Id,Name,IsDeleted,UpdateOn,CreateDate")] TeamModel teamModel)
         {
-            if (id != positionModel.Id)
+            if (id != teamModel.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace BasketballApp.Controllers
             {
                 try
                 {
-                    _context.Update(positionModel);
+                    _context.Update(teamModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PositionModelExists(positionModel.Id))
+                    if (!TeamModelExists(teamModel.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace BasketballApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(positionModel);
+            return View(teamModel);
         }
 
-        // GET: PositionModels/Delete/5
+        // GET: TeamModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var positionModel = await _context.Positions
+            var teamModel = await _context.Teams
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (positionModel == null)
+            if (teamModel == null)
             {
                 return NotFound();
             }
 
-            return View(positionModel);
+            return View(teamModel);
         }
 
-        // POST: PositionModels/Delete/5
+        // POST: TeamModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var positionModel = await _context.Positions.FindAsync(id);
-            if (positionModel != null)
+            var teamModel = await _context.Teams.FindAsync(id);
+            if (teamModel != null)
             {
-                _context.Positions.Remove(positionModel);
+                _context.Teams.Remove(teamModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PositionModelExists(int id)
+        private bool TeamModelExists(int id)
         {
-            return _context.Positions.Any(e => e.Id == id);
+            return _context.Teams.Any(e => e.Id == id);
         }
     }
 }

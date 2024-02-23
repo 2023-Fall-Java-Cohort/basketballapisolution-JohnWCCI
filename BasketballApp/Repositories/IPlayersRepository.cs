@@ -2,7 +2,7 @@
 
 namespace BasketballApp.Repositories
 {
-    public interface IPlayerRepository : IBaseRepository<PlayerModel>
+    public interface IPlayersRepository : IBaseRepository<PlayerModel>
     {
     }
 }

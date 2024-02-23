@@ -10,23 +10,22 @@ using BasketballDataModel;
 
 namespace BasketballApp.Controllers
 {
-    public class PlayerModelsController : Controller
+    public class PositionController : Controller
     {
         private readonly BasketballContext _context;
 
-        public PlayerModelsController(BasketballContext context)
+        public PositionController(BasketballContext context)
         {
             _context = context;
         }
 
-        // GET: PlayerModels
+        // GET: PositionModels
         public async Task<IActionResult> Index()
         {
-            var basketballContext = _context.Players.Include(p => p.Position).Include(p => p.Team);
-            return View(await basketballContext.ToListAsync());
+            return View(await _context.Positions.ToListAsync());
         }
 
-        // GET: PlayerModels/Details/5
+        // GET: PositionModels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,45 +33,39 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var playerModel = await _context.Players
-                .Include(p => p.Position)
-                .Include(p => p.Team)
+            var positionModel = await _context.Positions
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (playerModel == null)
+            if (positionModel == null)
             {
                 return NotFound();
             }
 
-            return View(playerModel);
+            return View(positionModel);
         }
 
-        // GET: PlayerModels/Create
+        // GET: PositionModels/Create
         public IActionResult Create()
         {
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Name");
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name");
             return View();
         }
 
-        // POST: PlayerModels/Create
+        // POST: PositionModels/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("NationalRank,Birthdate,IsActive,Salary,TeamId,PositionId,Id,Name,IsDeleted,UpdateOn,CreateDate")] PlayerModel playerModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,IsDeleted,UpdateOn,CreateDate")] PositionModel positionModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(playerModel);
+                _context.Add(positionModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Name", playerModel.PositionId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", playerModel.TeamId);
-            return View(playerModel);
+            return View(positionModel);
         }
 
-        // GET: PlayerModels/Edit/5
+        // GET: PositionModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,24 +73,22 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var playerModel = await _context.Players.FindAsync(id);
-            if (playerModel == null)
+            var positionModel = await _context.Positions.FindAsync(id);
+            if (positionModel == null)
             {
                 return NotFound();
             }
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Name", playerModel.PositionId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", playerModel.TeamId);
-            return View(playerModel);
+            return View(positionModel);
         }
 
-        // POST: PlayerModels/Edit/5
+        // POST: PositionModels/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("NationalRank,Birthdate,IsActive,Salary,TeamId,PositionId,Id,Name,IsDeleted,UpdateOn,CreateDate")] PlayerModel playerModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,IsDeleted,UpdateOn,CreateDate")] PositionModel positionModel)
         {
-            if (id != playerModel.Id)
+            if (id != positionModel.Id)
             {
                 return NotFound();
             }
@@ -106,12 +97,12 @@ namespace BasketballApp.Controllers
             {
                 try
                 {
-                    _context.Update(playerModel);
+                    _context.Update(positionModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayerModelExists(playerModel.Id))
+                    if (!PositionModelExists(positionModel.Id))
                     {
                         return NotFound();
                     }
@@ -122,12 +113,10 @@ namespace BasketballApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PositionId"] = new SelectList(_context.Positions, "Id", "Name", playerModel.PositionId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Name", playerModel.TeamId);
-            return View(playerModel);
+            return View(positionModel);
         }
 
-        // GET: PlayerModels/Delete/5
+        // GET: PositionModels/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,36 +124,34 @@ namespace BasketballApp.Controllers
                 return NotFound();
             }
 
-            var playerModel = await _context.Players
-                .Include(p => p.Position)
-                .Include(p => p.Team)
+            var positionModel = await _context.Positions
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (playerModel == null)
+            if (positionModel == null)
             {
                 return NotFound();
             }
 
-            return View(playerModel);
+            return View(positionModel);
         }
 
-        // POST: PlayerModels/Delete/5
+        // POST: PositionModels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var playerModel = await _context.Players.FindAsync(id);
-            if (playerModel != null)
+            var positionModel = await _context.Positions.FindAsync(id);
+            if (positionModel != null)
             {
-                _context.Players.Remove(playerModel);
+                _context.Positions.Remove(positionModel);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PlayerModelExists(int id)
+        private bool PositionModelExists(int id)
         {
-            return _context.Players.Any(e => e.Id == id);
+            return _context.Positions.Any(e => e.Id == id);
         }
     }
 }

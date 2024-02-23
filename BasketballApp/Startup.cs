@@ -10,8 +10,8 @@ namespace BasketballApp
         {
             services.AddHttpClient();
             services.AddScoped<ICoachesRepository, CoachesRepository>();
-            services.AddScoped<IPlayerRepository,PlayersRepository>();
-            services.AddScoped<ITeamRepository, TeamsRepository>();
+            services.AddScoped<IPlayersRepository,PlayersRepository>();
+            services.AddScoped<ITeamsRepository, TeamsRepository>();
             services.AddScoped<IPositionRepository, PositionsRepository>();
             services.AddSingleton<IErrorHandler, ErrorHandler>();
             return services;

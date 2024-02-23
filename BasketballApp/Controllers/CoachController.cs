@@ -5,14 +5,14 @@ using BasketballApp.Repositories;
 
 namespace BasketballApp.Controllers
 {
-    public class CoachModelsController : Controller
+    public class CoachController : Controller
     {
         private readonly ICoachesRepository coaches;
-        private readonly ITeamRepository teams;
-        private readonly ILogger<CoachModelsController> logger;
+        private readonly ITeamsRepository teams;
+        private readonly ILogger<CoachController> logger;
         private readonly IErrorHandler errorHandler;
 
-        public CoachModelsController(ICoachesRepository coaches, ITeamRepository teams, ILogger<CoachModelsController> logger, IErrorHandler errorHandler)
+        public CoachController(ICoachesRepository coaches, ITeamsRepository teams, ILogger<CoachController> logger, IErrorHandler errorHandler)
         {
             this.coaches = coaches;
             this.teams = teams;
